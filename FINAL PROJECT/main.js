@@ -14,6 +14,14 @@ document.addEventListener('keydown', keyPressed)
 //Global Variables
 
 let noteBlocks = [];
+for (let i = 0; i < 1; i++) {
+    noteBlocks.push({
+        xLocation: randomSetValue(),
+        yLocation: -50,
+        x: 150,
+        y: 70,
+    })
+}
 
 
 
@@ -30,7 +38,7 @@ let speed = 10
 let score = 0
 let miss = 0
 
-let end = false
+let endGame = false
 let playGame = false
 
 // Main Program Loop
@@ -47,38 +55,13 @@ function draw() {
     clickArea(150, "pink", 150, keyBind2, 215)
     clickArea(300, "yellow", 300, keyBind3, 360)
     clickArea(450, "white", 450, keyBind4, 515)
-  
-    //Program Speed
-     for (let i = 0; i < noteBlocks.length; i++) {
-         noteBlocks[i].yLocation += speed
-     
 
-    //Remove a noteblock when it reaches the end
-   
-        if (noteBlocks[i].yLocation > cnv.height) {
-            noteBlocks.splice(i, 1)
-            end = true
-            i--
-        }
-
-    }
-/*
-    if (end == true) {
-        for (let n = 0; n < 1; n++) {
-            blockVals()
-        }
-        end = false
-    }
-*/
 
     //Draw Noteblocks 
     for (let i = 0; i < noteBlocks.length; i++) {
         ctx.drawNoteBlocks(noteBlocks[i].xLocation, noteBlocks[i].yLocation, noteBlocks[i].x, noteBlocks[i].y, randomSetColor(i))
     }
 
-    setTimeout(makeBlocks, 0)
-    
-    
     // Request another Animation Frame
     requestAnimationFrame(draw);
 }
@@ -97,9 +80,9 @@ function keyPressed() {
         keyBind1 = ""
 
         for (let i = 0; i < noteBlocks.length; i++) {
-            if (noteBlocks[i].yLocation < 650 && noteBlocks[i].yLocation > 610 && noteBlocks[i].xLocation == 0) {
+            if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 0) {
                 noteBlocks.splice(i, 1)
-                //blockVals()
+                
             }
         }
 
@@ -110,9 +93,9 @@ function keyPressed() {
         console.log("FEEZ NUTS")
         keyBind2 = ""
         for (let i = 0; i < noteBlocks.length; i++) {
-            if (noteBlocks[i].yLocation < 650 && noteBlocks[i].yLocation > 610 && noteBlocks[i].xLocation == 150) {
+            if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 150) {
                 noteBlocks.splice(i, 1)
-                //blockVals()
+               
             }
         }
 
@@ -123,9 +106,9 @@ function keyPressed() {
         console.log("JEEZ NUTS")
         keyBind3 = ""
         for (let i = 0; i < noteBlocks.length; i++) {
-            if (noteBlocks[i].yLocation < 650 && noteBlocks[i].yLocation > 610 && noteBlocks[i].xLocation == 300) {
+            if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 300) {
                 noteBlocks.splice(i, 1)
-                //blockVals()
+               
             }
         }
 
@@ -136,9 +119,9 @@ function keyPressed() {
         console.log("KEEZ NUTS")
         keyBind4 = ""
         for (let i = 0; i < noteBlocks.length; i++) {
-            if (noteBlocks[i].yLocation < 650 && noteBlocks[i].yLocation > 610 && noteBlocks[i].xLocation == 450) {
+            if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 450) {
                 noteBlocks.splice(i, 1)
-                //blockVals()
+                
             }
         }
 
@@ -159,7 +142,6 @@ ctx.fillBlock = function (x1, y1, x2, y2, Color) {
 ctx.drawNoteBlocks = function (x1, y1, x2, y2, color) {
     ctx.beginPath();
     ctx.rect(x1, y1, x2, y2);
-    ctx.borderStyle = "grey"
     ctx.fillStyle = color;
     ctx.fill();
 }
@@ -208,31 +190,50 @@ function randomSetColor(position) {
 }
 
 //Pushing in blockValues
-function blockVals() {
+function noteBlockVals() {
     noteBlocks.push({
         xLocation: randomSetValue(),
         yLocation: -50,
         x: 150,
-        y: 50,
+        y: 70,
     })
 }
 
+
 //Times when to push next block
-function makeBlocks(){
-    let timmy = setTimeout(blockVals, 3*1000/speed);
-    
+setTimeout(makeBlocks, 0)
+function makeBlocks() {
+    noteBlocks.push({
+        xLocation: randomSetValue(),
+        yLocation: -50,
+        x: 150,
+        y: 70,
+    })
+    setTimeout(makeBlocks, 3 * 1000 / speed);
+
+}
+
+//Make Blocks Falls
+var falling = setInterval(blockSpeed, 50/3);
+function blockSpeed() {
+    speed += 0.001
+    //Program Speed
+    for (let i = 0; i < noteBlocks.length; i++) {
+        noteBlocks[i].yLocation += speed
+
+
+        //Remove a noteblock when it reaches the end
+        if (noteBlocks[i].yLocation > cnv.height) {
+            noteBlocks.splice(i, 1)
+        }
+    }
 }
 
 //Click Area Vals
-function clickArea(fillXLocation, color, strokeXLocation,keyBindNumber, keyBindLocation){
-    ctx.fillBlock(fillXLocation, 650, 150, 50, color)
-    ctx.strokeBlock(strokeXLocation, 650, 150, 50)
+function clickArea(fillXLocation, fillColor, strokeXLocation, keyBindNumber, keyBindXLocation) {
+    ctx.fillBlock(fillXLocation, 650, 150, 70, fillColor)
+    ctx.strokeBlock(strokeXLocation, 650, 150, 70)
     ctx.fillStyle = "black"
-    ctx.fillText(keyBindNumber, keyBindLocation, 685);
-
-}
-
-function noRepeat(blockCheck) {
-
+    ctx.fillText(keyBindNumber, keyBindXLocation, 695);
 
 }
