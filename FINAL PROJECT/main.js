@@ -82,7 +82,8 @@ function keyPressed() {
         for (let i = 0; i < noteBlocks.length; i++) {
             if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 0) {
                 noteBlocks.splice(i, 1)
-                
+                score++
+                document.getElementById("score").innerHTML= score
             }
         }
 
@@ -95,7 +96,8 @@ function keyPressed() {
         for (let i = 0; i < noteBlocks.length; i++) {
             if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 150) {
                 noteBlocks.splice(i, 1)
-               
+               score++
+               document.getElementById("score").innerHTML= score
             }
         }
 
@@ -108,7 +110,8 @@ function keyPressed() {
         for (let i = 0; i < noteBlocks.length; i++) {
             if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 300) {
                 noteBlocks.splice(i, 1)
-               
+               score++
+               document.getElementById("score").innerHTML= score
             }
         }
 
@@ -121,7 +124,8 @@ function keyPressed() {
         for (let i = 0; i < noteBlocks.length; i++) {
             if (noteBlocks[i].yLocation < 700 && noteBlocks[i].yLocation > 580 && noteBlocks[i].xLocation == 450) {
                 noteBlocks.splice(i, 1)
-                
+                score++
+                document.getElementById("score").innerHTML= score
             }
         }
 
@@ -205,7 +209,7 @@ setTimeout(makeBlocks, 0)
 function makeBlocks() {
     noteBlocks.push({
         xLocation: randomSetValue(),
-        yLocation: -50,
+        yLocation: -70,
         x: 150,
         y: 70,
     })
@@ -220,11 +224,19 @@ function blockSpeed() {
     //Program Speed
     for (let i = 0; i < noteBlocks.length; i++) {
         noteBlocks[i].yLocation += speed
-
+        document.getElementById("speed").innerHTML = Math.round(speed)
 
         //Remove a noteblock when it reaches the end
         if (noteBlocks[i].yLocation > cnv.height) {
             noteBlocks.splice(i, 1)
+            miss++
+            document.getElementById("misses").innerHTML = miss
+        }
+        //Set losing Screen and retry screen
+        if (miss == 50){
+            clearInterval(falling)
+            endGame = true
+            noteBlocks = []
         }
     }
 }
@@ -237,3 +249,4 @@ function clickArea(fillXLocation, fillColor, strokeXLocation, keyBindNumber, key
     ctx.fillText(keyBindNumber, keyBindXLocation, 695);
 
 }
+
