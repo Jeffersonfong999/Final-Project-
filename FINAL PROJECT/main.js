@@ -14,15 +14,6 @@ document.addEventListener('keydown', keyPressed)
 //Global Variables
 
 let noteBlocks = [];
-for (let i = 0; i < 1; i++) {
-    noteBlocks.push({
-        xLocation: randomSetValue(),
-        yLocation: -50,
-        x: 150,
-        y: 70,
-    })
-}
-
 
 
 //Establish key letters
