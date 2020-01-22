@@ -215,7 +215,7 @@ function makeNoteBlocks() {
 }
 
 //Make Blocks Falls
-var falling = setInterval(blockSpeed, 50 / 3);
+let falling = setInterval(blockSpeed, 50 / 3);
 
 function blockSpeed() {
     speed += 0.001
