@@ -160,7 +160,7 @@ function keyPressed() {
 }
 
 
-//Make Note Blocks
+//Make Note Blocks Drop at certain areas
 function randomSetValue() {
     let randomVal = Math.randomInt(1, 5)
     if (randomVal == 1) {
